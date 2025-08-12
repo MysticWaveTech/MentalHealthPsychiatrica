@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Council General — Interactive Game</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#ffd166;--muted:#98a0b3;--glass:rgba(255,255,255,0.04)}
+    *{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071021 0%,var(--bg) 100%);color:#e6eef8}
+    .wrap{max-width:980px;margin:36px auto;padding:28px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));box-shadow:0 8px 40px rgba(2,6,23,0.7)}
+    header{display:flex;gap:18px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:8px;background:linear-gradient(90deg,var(--accent),#ffd1a1);display:flex;align-items:center;justify-content:center;color:#07203b;font-weight:700;font-size:20px}
+    h1{margin:0;font-size:22px;letter-spacing:-0.5px}
+    p.lead{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:22px;margin-top:22px}
+    .card{background:linear-gradient(180deg,var(--card),rgba(255,255,255,0.01));padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+
+    .question{display:flex;gap:12px;align-items:center;padding:10px;border-radius:8px;margin-bottom:8px;background:var(--glass)}
+    .question label{flex:1;font-size:14px}
+    .switch{position:relative;width:56px;height:28px;background:rgba(255,255,255,0.06);border-radius:999px;cursor:pointer}
+    .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:all .18s ease}
+    .switch.on{background:linear-gradient(90deg,var(--accent),#ffb571)}
+    .switch.on .knob{left:31px;background:#07203b}
+
+    .controls{display:flex;flex-direction:column;gap:12px}
+    .btn{padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:#07203b;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);font-weight:600}
+
+    .sidebar h3{margin:0 0 8px;font-size:15px}
+    .summary{font-size:13px;color:var(--muted);line-height:1.45}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+
+    /* result popup */
+    .overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.8));z-index:60}
+    .overlay.show{display:flex}
+    .modal{width:720px;max-width:95%;background:#071028;padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+    .modal h2{margin:0 0 12px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:13px;color:var(--muted)}
+
+    @media (max-width:900px){.grid{grid-template-columns:1fr;}.logo{display:none}}
+
+  </style>
+</head>
+<body>
+    <div style="width:800px; height: 300px; background-color: #ccc; border: 1px solid purple;"><h3>Fortitude Valley 4000</h3>
+
+    </div>
+    <p>Games night Tuesday: Xbox. Send 3 words sms. Dress smart casual, show slight humour.</p>
+            <img src="2025-08-12_09-47-03-048.jpg" style="width: 800px; height: 400px;"><br><br>
+            <b style"color: #000;">Affiliated with Tim Mendham Australian Skeptics. A Drew Richardson victim site and world corporate body of paliperidone.</b>
+            <br><br>
+    
+  <div class="wrap">
+    <header>
+
+      <div class="logo">CG</div>
+      <img src="seanmascali.jpg" width="400px; height: 400px;" />
+      <div>
+        <h1>Sean Mascali— Council General of Psychiatry (Interactive)</h1>
+        <p class="lead">A reflective interactive page: answer honestly. This is a game of signals and discernment — not diagnosis.</p>
+        <p>Street rep: Can't be got.</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Answer the prompts</h3>
+        <p class="summary">Toggle each item to mark if it applies to you. The system will generate an interpretive summary you can use as a professional health diagnosis.</p>
+
+        <div id="questions" style="margin-top:12px">
+          <!-- questions inserted by JS -->
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <button id="run" class="btn">Generate Report</button>
+          <button id="reset" class="btn ghost">Reset</button>
+        </div>
+
+      </div>
+
+      <aside class="card sidebar">
+        <h3>Quick reference</h3>
+        <p class="summary">This interactive lists questions such as: 'Do you see the future? Paranoia? Do you harness gifts? Special powers? Do you analyze TV and music for significant hints? Do you believe fields are veiled in physical reality?' — answer to build a personalised summary.</p>
+
+        <div style="margin-top:12px" class="controls">
+          <div><strong>Role:</strong> Council General</div>
+          <div><strong>Mode:</strong> Reflective • Investigative</div>
+        </div>
+
+        <div style="margin-top:14px"><strong>Tips</strong><p class="summary">Be honest. This is a tool medical evaluation. If anything you notice causes distress, compile system support.</p></div>
+      </aside>
+    </div>
+
+    <footer>Built for you. Use responsibly.</footer>
+  </div>
+
+<h6>
+    
+    Coming soon, IQ test [range 5000-50000000]! <br>The test where the discrepancy between individual and groups factor in sophistication.<br>
+    <br>
+    Abstract–Symbolic Thinker:	105–160+	Sees patterns in TV/music, connects coincidences, reads significance in events.<br>
+Esoteric–Systems Thinker:	100–150	Believes in subtle fields, paranormal over myth variant  archetypes, multi-disciplinary health views.<br>
+Intuitive–High Empath	: Any IQ, often 95–135	Picks up “higher self” messages, synchronisation feelings, emotional resonance.<br>
+Critical Pattern Challenger: 110–150	Refuses “circular science”, demands proof, questions official narratives.<br>
+Mythic–Visionary	105–160+	Believes in symbolic systems like shadows, plasma, photons in body-energy function.
+    
+    
+</h6>
+
+
+  <div id="overlay" class="overlay">
+    <div class="modal">
+      <h2>Council General — Generated Summary</h2>
+      <div id="tags" class="tags"></div>
+      <p id="desc" style="color:var(--muted);margin-top:12px;line-height:1.5"></p>
+      <div style="margin-top:12px;display:flex;gap:10px;justify-content:flex-end">
+        <button id="close" class="btn ghost">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const Q = [
+      "Do you see the future?",
+      "Paranoia?",
+      "Do you harness any gifts? Special powers?",
+      "Do you analyse TV and music for significant hints? Coincidences?",
+      "Do you get aggressive? Frustrated?",
+      "Are you a significant adult? Right person?",
+      "Esoteric or spiritual? Synchronised?",
+      "Hold beliefs? Maybe you count or matter?",
+      "Have knowledge or understanding? Your own thoughts?",
+      "Do you think health is multi-disciplinary?",
+      "Do you refuse circular science? Lack of proof?",
+      "Do you believe the paranormal over myth variant archetypes?",
+      "Do you believe in shadows, plasma, photons and ligaments role in the body?",
+      "Do you think fields are veiled in physical reality and people exist approximately?"
+    ];
+
+    const state = {};
+    const container = document.getElementById('questions');
+
+    Q.forEach((q,i)=>{
+      state[i]=false;
+      const el = document.createElement('div');
+      el.className='question';
+      el.innerHTML = `<label>${q}</label><div data-id="${i}" class="switch" role="checkbox" aria-checked="false" tabindex="0"><div class="knob"></div></div>`;
+      container.appendChild(el);
+    });
+
+    // event delegation for switches
+    container.addEventListener('click', e=>{
+      const sw = e.target.closest('.switch');
+      if(!sw) return;
+      const id = sw.getAttribute('data-id');
+      state[id]=!state[id];
+      sw.classList.toggle('on', state[id]);
+      sw.setAttribute('aria-checked', state[id]);
+    });
+    container.addEventListener('keydown', e=>{
+      if(e.key==='Enter' || e.key===' '){
+        const sw = e.target.closest('.switch');
+        if(!sw) return;
+        const id = sw.getAttribute('data-id');
+        state[id]=!state[id];
+        sw.classList.toggle('on', state[id]);
+        sw.setAttribute('aria-checked', state[id]);
+      }
+    });
+
+    document.getElementById('reset').addEventListener('click', ()=>{
+      Object.keys(state).forEach(k=>state[k]=false);
+      document.querySelectorAll('.switch').forEach(s=>{s.classList.remove('on');s.setAttribute('aria-checked','false')});
+    });
+
+    function interpret(state){
+      const truths = [];
+      Object.keys(state).forEach(k=>{ if(state[k]) truths.push(Q[+k]); });
+      const count = truths.length;
+      const tags = [];
+      if(count>8) tags.push('High-sensitivity');
+      if(state[1]) tags.push('Paranoia flagged');
+      if(state[2]) tags.push('Gifts reported');
+      if(state[3]) tags.push('Media patterning');
+      if(state[6]) tags.push('Esoteric alignment');
+      if(state[9]) tags.push('Multidisciplinary thinker');
+      if(state[11]) tags.push('Paranormal favoured');
+      if(state[13]) tags.push('Field-conscious');
+      if(count===0) tags.push('No markers');
+
+      const desc = `You selected ${count} statements. ${count>0?('Highlights include: '+truths.slice(0,6).join(' • ')+'.'):''} Use this as a reflective map: consider what feels stabilising, what requires grounding, and which impressions come from your core self versus external noise.`;
+
+      return {tags,desc};
+    }
+
+    document.getElementById('run').addEventListener('click', ()=>{
+      const res = interpret(state);
+      const tagsEl = document.getElementById('tags');
+      tagsEl.innerHTML='';
+      res.tags.forEach(t=>{
+        const span = document.createElement('div'); span.className='tag'; span.textContent=t; tagsEl.appendChild(span);
+      });
+      document.getElementById('desc').textContent = res.desc;
+      document.getElementById('overlay').classList.add('show');
+    });
+
+    document.getElementById('close').addEventListener('click', ()=>{
+      document.getElementById('overlay').classList.remove('show');
+    });
+  </script>
+  
+  <p>Murders all she wrote. Play cells nice. <i>Disclaimer: I do not condone murder or crime.</i></p>
+      <img src="2025-08-11_20-23-37-351.jpg" style="width: 300px; height: 300px;">
+  
+</body>
+</html>
