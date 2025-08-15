@@ -3,218 +3,226 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Council General — Interactive Game</title>
+  <title>Panmodal Radionics — Mental-Field Prototype (Conceptual)</title>
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#ffd166;--muted:#98a0b3;--glass:rgba(255,255,255,0.04)}
-    *{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071021 0%,var(--bg) 100%);color:#e6eef8}
-    .wrap{max-width:980px;margin:36px auto;padding:28px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));box-shadow:0 8px 40px rgba(2,6,23,0.7)}
-    header{display:flex;gap:18px;align-items:center}
-    .logo{width:64px;height:64px;border-radius:8px;background:linear-gradient(90deg,var(--accent),#ffd1a1);display:flex;align-items:center;justify-content:center;color:#07203b;font-weight:700;font-size:20px}
-    h1{margin:0;font-size:22px;letter-spacing:-0.5px}
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:13px}
-
-    .grid{display:grid;grid-template-columns:1fr 380px;gap:22px;margin-top:22px}
-    .card{background:linear-gradient(180deg,var(--card),rgba(255,255,255,0.01));padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-
-    .question{display:flex;gap:12px;align-items:center;padding:10px;border-radius:8px;margin-bottom:8px;background:var(--glass)}
-    .question label{flex:1;font-size:14px}
-    .switch{position:relative;width:56px;height:28px;background:rgba(255,255,255,0.06);border-radius:999px;cursor:pointer}
-    .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:all .18s ease}
-    .switch.on{background:linear-gradient(90deg,var(--accent),#ffb571)}
-    .switch.on .knob{left:31px;background:#07203b}
-
-    .controls{display:flex;flex-direction:column;gap:12px}
-    .btn{padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:#07203b;font-weight:700;cursor:pointer}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);font-weight:600}
-
-    .sidebar h3{margin:0 0 8px;font-size:15px}
-    .summary{font-size:13px;color:var(--muted);line-height:1.45}
-
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-
-    /* result popup */
-    .overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.8));z-index:60}
-    .overlay.show{display:flex}
-    .modal{width:720px;max-width:95%;background:#071028;padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
-    .modal h2{margin:0 0 12px}
-    .tags{display:flex;gap:8px;flex-wrap:wrap}
-    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:13px;color:var(--muted)}
-
-    @media (max-width:900px){.grid{grid-template-columns:1fr;}.logo{display:none}}
-
+    /* Minimal, modern styling. No operational instructions included — purely conceptual UI. */
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#8b5cf6}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;color:#e6eef6;background:linear-gradient(180deg,#051023 0%, #071028 60%)}
+    .app{display:flex;gap:18px;padding:28px;box-sizing:border-box}
+    .sidebar{width:320px;background:rgba(255,255,255,0.03);padding:18px;border-radius:12px;backdrop-filter:blur(6px)}
+    .main{flex:1;display:flex;flex-direction:column;gap:18px}
+    h1{font-size:18px;margin:0 0 8px 0}
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    .card{background:var(--card);padding:14px;border-radius:10px}
+    select,input,button{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .row{display:flex;gap:10px}
+    .row > *{flex:1}
+    .dial{display:flex;align-items:center;gap:10px}
+    .dial input[type=range]{flex:1}
+    .canvas-wrap{height:420px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative}
+    #panmodalCanvas{width:100%;height:100%;display:block;border-radius:10px}
+    .log{height:160px;overflow:auto;background:rgba(0,0,0,0.2);padding:8px;border-radius:8px;font-family:monospace;font-size:12px}
+    .muted{color:var(--muted);font-size:13px}
+    footer{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+    .warning{background:#3b0f0f;color:#ffdede;padding:10px;border-radius:8px;font-weight:600}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:12px}
   </style>
 </head>
 <body>
-    <div style="width:800px; height: 300px; background-color: #ccc; border: 1px solid purple;"><h3>Fortitude Valley 4000</h3>
+  <div class="app">
+    <aside class="sidebar card">
+      <h1>System Controls</h1>
+      <p class="muted">Conceptual prototype: models egrégore management, panmodal mapping, and radionic tuning for institutional integration. <strong>Not medical advice.</strong></p>
 
-    </div>
-    <p>Games night Tuesday: Xbox. Send 3 words sms. Dress smart casual, show slight humour.</p>
-            <img src="2025-08-12_09-47-03-048.jpg" style="width: 800px; height: 400px;"><br><br>
-            <b style"color: #000;">Affiliated with Tim Mendham Australian Skeptics. A Drew Richardson victim site and world corporate body of paliperidone.</b>
-            <br><br>
-    
-  <div class="wrap">
-    <header>
+      <label for="ward">Hospital Ward (mock)</label>
+      <select id="ward">
+        <option>Ward A — Stabilisation</option>
+        <option>Ward B — Long-term</option>
+        <option>Ward C — Intensive Observation</option>
+      </select>
 
-      <div class="logo">CG</div>
-      <img src="seanmascali.jpg" width="400px; height: 400px;" />
-      <div>
-        <h1>Sean Mascali— Council General of Psychiatry (Interactive)</h1>
-        <p class="lead">A reflective interactive page: answer honestly. This is a game of signals and discernment — not diagnosis.</p>
-        <p>Street rep: Can't be got.</p>
-      </div>
-    </header>
+      <label for="egregore">Egrégore Profile</label>
+      <select id="egregore">
+        <option value="consensus_calm">Consensus Calm (collective guard)</option>
+        <option value="creative_tide">Creative Tide (open imaginal)</option>
+        <option value="containment_mesh">Containment Mesh (stability)</option>
+        <option value="panmodal_veil">Panmodal Veil (sensory harmonics)</option>
+      </select>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Answer the prompts</h3>
-        <p class="summary">Toggle each item to mark if it applies to you. The system will generate an interpretive summary you can use as a professional health diagnosis.</p>
+      <label for="patient">Patient (mock)</label>
+      <select id="patient">
+        <option data-id="p001">#P001 — 'Case file (fictional)'</option>
+        <option data-id="p002">#P002 — 'Case file (fictional)'</option>
+        <option data-id="p003">#P003 — 'Case file (fictional)'</option>
+      </select>
 
-        <div id="questions" style="margin-top:12px">
-          <!-- questions inserted by JS -->
+      <div style="margin-top:12px">
+        <label>Radionic Tuning</label>
+        <div class="dial">
+          <span class="pill">Amplitude</span>
+          <input id="amp" type="range" min="0" max="100" value="28" />
         </div>
-
-        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
-          <button id="run" class="btn">Generate Report</button>
-          <button id="reset" class="btn ghost">Reset</button>
+        <div class="dial" style="margin-top:8px">
+          <span class="pill">Coherence</span>
+          <input id="coh" type="range" min="0" max="100" value="62" />
         </div>
-
+        <div class="dial" style="margin-top:8px">
+          <span class="pill">Shield</span>
+          <input id="shield" type="range" min="0" max="100" value="84" />
+        </div>
       </div>
 
-      <aside class="card sidebar">
-        <h3>Quick reference</h3>
-        <p class="summary">This interactive lists questions such as: 'Do you see the future? Paranoia? Do you harness gifts? Special powers? Do you analyze TV and music for significant hints? Do you believe fields are veiled in physical reality?' — answer to build a personalised summary.</p>
-
-        <div style="margin-top:12px" class="controls">
-          <div><strong>Role:</strong> Council General</div>
-          <div><strong>Mode:</strong> Reflective • Investigative</div>
-        </div>
-
-        <div style="margin-top:14px"><strong>Tips</strong><p class="summary">Be honest. This is a tool medical evaluation. If anything you notice causes distress, compile system support.</p></div>
-      </aside>
-    </div>
-
-    <footer>Built for you. Use responsibly.</footer>
-  </div>
-
-<h6>
-    
-    Coming soon, IQ test [range 5000-50000000]! <br>The test where the discrepancy between individual and groups factor in sophistication.<br>
-    <br>
-    Abstract–Symbolic Thinker:	105–160+	Sees patterns in TV/music, connects coincidences, reads significance in events.<br>
-Esoteric–Systems Thinker:	100–150	Believes in subtle fields, paranormal over myth variant  archetypes, multi-disciplinary health views.<br>
-Intuitive–High Empath	: Any IQ, often 95–135	Picks up “higher self” messages, synchronisation feelings, emotional resonance.<br>
-Critical Pattern Challenger: 110–150	Refuses “circular science”, demands proof, questions official narratives.<br>
-Mythic–Visionary	105–160+	Believes in symbolic systems like shadows, plasma, photons in body-energy function.
-    
-    
-</h6>
-
-
-  <div id="overlay" class="overlay">
-    <div class="modal">
-      <h2>Council General — Generated Summary</h2>
-      <div id="tags" class="tags"></div>
-      <p id="desc" style="color:var(--muted);margin-top:12px;line-height:1.5"></p>
-      <div style="margin-top:12px;display:flex;gap:10px;justify-content:flex-end">
-        <button id="close" class="btn ghost">Close</button>
+      <div style="margin-top:14px;display:flex;gap:8px">
+        <button id="apply">Apply (simulate)</button>
+        <button id="clear">Reset</button>
       </div>
-    </div>
+
+      <div style="margin-top:12px">
+        <div class="warning">Fictional / research UI only — do NOT substitute for clinical care.</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <h1>Panmodal Map — Live View</h1>
+          <div class="muted">Ward snapshot • <span id="snapshotTag">Idle</span></div>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="panmodalCanvas"></canvas>
+          <div style="position:absolute;left:12px;top:12px;background:rgba(0,0,0,0.25);padding:6px;border-radius:8px;font-size:12px;color:var(--muted)">
+            Model: <strong id="modelLabel">panmodal_veil</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="display:grid;grid-template-columns:1fr 320px;gap:12px;align-items:start">
+        <div>
+          <h1>Interaction Log</h1>
+          <div id="log" class="log"></div>
+        </div>
+        <div>
+          <h1>Metadata & Export</h1>
+          <p class="muted">Recordings are mock data for scenario planning. No real patient data should be used.</p>
+          <label>Session Note</label>
+          <textarea id="note" rows="6" style="width:100%;padding:8px;border-radius:8px;background:transparent;color:inherit;border:1px solid rgba(255,255,255,0.04)"></textarea>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button id="export">Export Log</button>
+            <button id="downloadJson">Download JSON</button>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="muted">Prototype v0.1 — conceptual integration of egrégore, panmodal, and radionic UI elements for institutional planning.</div>
+        <div class="muted">Built for brainstorming — not operational.</div>
+      </footer>
+    </main>
   </div>
 
   <script>
-    const Q = [
-      "Do you see the future?",
-      "Paranoia?",
-      "Do you harness any gifts? Special powers?",
-      "Do you analyse TV and music for significant hints? Coincidences?",
-      "Do you get aggressive? Frustrated?",
-      "Are you a significant adult? Right person?",
-      "Esoteric or spiritual? Synchronised?",
-      "Hold beliefs? Maybe you count or matter?",
-      "Have knowledge or understanding? Your own thoughts?",
-      "Do you think health is multi-disciplinary?",
-      "Do you refuse circular science? Lack of proof?",
-      "Do you believe the paranormal over myth variant archetypes?",
-      "Do you believe in shadows, plasma, photons and ligaments role in the body?",
-      "Do you think fields are veiled in physical reality and people exist approximately?"
-    ];
+    // --- Mock, non-operational simulation code (no procedures, no medical instructions) ---
+    const canvas = document.getElementById('panmodalCanvas');
+    const ctx = canvas.getContext('2d');
+    const logEl = document.getElementById('log');
+    const ward = document.getElementById('ward');
+    const eg = document.getElementById('egregore');
+    const modelLabel = document.getElementById('modelLabel');
+    const snapshotTag = document.getElementById('snapshotTag');
 
-    const state = {};
-    const container = document.getElementById('questions');
+    function resize(){
+      canvas.width = canvas.clientWidth * devicePixelRatio;
+      canvas.height = canvas.clientHeight * devicePixelRatio;
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+      draw();
+    }
+    window.addEventListener('resize', resize);
+    resize();
 
-    Q.forEach((q,i)=>{
-      state[i]=false;
-      const el = document.createElement('div');
-      el.className='question';
-      el.innerHTML = `<label>${q}</label><div data-id="${i}" class="switch" role="checkbox" aria-checked="false" tabindex="0"><div class="knob"></div></div>`;
-      container.appendChild(el);
-    });
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      // visual metaphor: layered radial fields representing panmodal harmonics
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      const cx = w/2, cy = h/2;
+      const amp = document.getElementById('amp').value;
+      const coh = document.getElementById('coh').value/100;
+      const shield = document.getElementById('shield').value/100;
 
-    // event delegation for switches
-    container.addEventListener('click', e=>{
-      const sw = e.target.closest('.switch');
-      if(!sw) return;
-      const id = sw.getAttribute('data-id');
-      state[id]=!state[id];
-      sw.classList.toggle('on', state[id]);
-      sw.setAttribute('aria-checked', state[id]);
-    });
-    container.addEventListener('keydown', e=>{
-      if(e.key==='Enter' || e.key===' '){
-        const sw = e.target.closest('.switch');
-        if(!sw) return;
-        const id = sw.getAttribute('data-id');
-        state[id]=!state[id];
-        sw.classList.toggle('on', state[id]);
-        sw.setAttribute('aria-checked', state[id]);
+      const baseR = Math.min(w,h) * 0.18;
+      for(let i=0;i<6;i++){
+        const phase = performance.now()/1000 * (0.2 + i*0.05);
+        const radius = baseR + Math.sin(phase + i) * (amp/30) + i*20;
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(${30+i*30},${120- i*10},${200 - i*20},${0.06 + 0.12*coh})`;
+        ctx.lineWidth = 6*(0.4+coh);
+        ctx.ellipse(cx,cy,radius,radius* (0.85 + i*0.02), phase, 0, Math.PI*2);
+        ctx.stroke();
       }
-    });
 
-    document.getElementById('reset').addEventListener('click', ()=>{
-      Object.keys(state).forEach(k=>state[k]=false);
-      document.querySelectorAll('.switch').forEach(s=>{s.classList.remove('on');s.setAttribute('aria-checked','false')});
-    });
+      // center glyph
+      ctx.fillStyle = 'rgba(255,255,255,0.03)';
+      ctx.beginPath();
+      ctx.arc(cx,cy,baseR*0.35,0,Math.PI*2);
+      ctx.fill();
 
-    function interpret(state){
-      const truths = [];
-      Object.keys(state).forEach(k=>{ if(state[k]) truths.push(Q[+k]); });
-      const count = truths.length;
-      const tags = [];
-      if(count>8) tags.push('High-sensitivity');
-      if(state[1]) tags.push('Paranoia flagged');
-      if(state[2]) tags.push('Gifts reported');
-      if(state[3]) tags.push('Media patterning');
-      if(state[6]) tags.push('Esoteric alignment');
-      if(state[9]) tags.push('Multidisciplinary thinker');
-      if(state[11]) tags.push('Paranormal favoured');
-      if(state[13]) tags.push('Field-conscious');
-      if(count===0) tags.push('No markers');
+      // overlay shield indicator
+      ctx.fillStyle = 'rgba(0,0,0,0.25)';
+      ctx.fillRect(w-140,12,128,46);
+      ctx.fillStyle = 'white';
+      ctx.font = '12px sans-serif';
+      ctx.fillText('Shield: '+Math.round(shield*100)+'%', w-128, 36);
 
-      const desc = `You selected ${count} statements. ${count>0?('Highlights include: '+truths.slice(0,6).join(' • ')+'.'):''} Use this as a reflective map: consider what feels stabilising, what requires grounding, and which impressions come from your core self versus external noise.`;
-
-      return {tags,desc};
+      requestAnimationFrame(draw);
     }
 
-    document.getElementById('run').addEventListener('click', ()=>{
-      const res = interpret(state);
-      const tagsEl = document.getElementById('tags');
-      tagsEl.innerHTML='';
-      res.tags.forEach(t=>{
-        const span = document.createElement('div'); span.className='tag'; span.textContent=t; tagsEl.appendChild(span);
-      });
-      document.getElementById('desc').textContent = res.desc;
-      document.getElementById('overlay').classList.add('show');
+    // eventing
+    document.getElementById('apply').addEventListener('click',()=>{
+      const entry = {
+        time: new Date().toISOString(),
+        ward: ward.value,
+        egr: eg.value,
+        amp: document.getElementById('amp').value,
+        coh: document.getElementById('coh').value,
+        shield: document.getElementById('shield').value,
+        note: document.getElementById('note').value || ''
+      };
+      appendLog('Applied tuning: ' + JSON.stringify(entry));
+      snapshotTag.textContent = 'Last applied ' + new Date().toLocaleTimeString();
+      modelLabel.textContent = eg.value;
     });
 
-    document.getElementById('close').addEventListener('click', ()=>{
-      document.getElementById('overlay').classList.remove('show');
+    document.getElementById('clear').addEventListener('click',()=>{
+      document.getElementById('amp').value = 28;
+      document.getElementById('coh').value = 62;
+      document.getElementById('shield').value = 84;
+      appendLog('Reset sliders to defaults.');
     });
+
+    function appendLog(txt){
+      const li = document.createElement('div');
+      li.textContent = '['+new Date().toLocaleTimeString()+'] ' + txt;
+      logEl.prepend(li);
+    }
+
+    document.getElementById('export').addEventListener('click',()=>{
+      appendLog('Export requested — producing mock scenario export (no real data).');
+      const data = {meta:{app:'Panmodal Prototype v0.1',timestamp:new Date().toISOString()},notes:document.getElementById('note').value};
+      console.log('EXPORT',data);
+      alert('Export produced (console & session log). This prototype is conceptual only.');
+    });
+
+    document.getElementById('downloadJson').addEventListener('click',()=>{
+      const payload = {session:new Date().toISOString(),ward:ward.value,egr:eg.value};
+      const blob = new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'panmodal-session.json'; a.click(); URL.revokeObjectURL(url);
+      appendLog('Downloaded mock session JSON.');
+    });
+
+    // initial log entries
+    appendLog('Prototype loaded — interactive simulation only.');
+    appendLog('Reminder: This UI is a planning/visualisation tool and not clinical software.');
+
   </script>
-  
-  <p>Murders all she wrote. Play cells nice. <i>Disclaimer: I do not condone murder or crime.</i></p>
-      <img src="2025-08-11_20-23-37-351.jpg" style="width: 300px; height: 300px;">
-  
 </body>
 </html>
