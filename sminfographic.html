@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sean Mascali - Research & Affiliations Infographic</title>
+<style>
+  /* Reset & basic styles */
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+  body { background: #111; color: #eee; line-height: 1.6; }
+  a { color: #00ffcc; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  /* Container */
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+  
+  /* Header */
+  header { text-align: center; padding-bottom: 30px; }
+  header h1 { font-size: 3em; color: #0ff; margin-bottom: 10px; }
+  header p { font-size: 1.2em; color: #ccc; }
+  
+  /* Sections */
+  section { margin-bottom: 50px; }
+  section h2 { font-size: 2em; border-bottom: 2px solid #0ff; margin-bottom: 15px; padding-bottom: 5px; }
+  section p { margin-bottom: 10px; }
+  section ul { list-style: none; padding-left: 0; }
+  section ul li { margin-bottom: 8px; padding-left: 1.2em; position: relative; }
+  section ul li::before { content: "•"; position: absolute; left: 0; color: #0ff; }
+
+  /* Cards for key info */
+  .card { background: #222; border: 1px solid #0ff; border-radius: 10px; padding: 15px; margin-bottom: 15px; }
+  .card img { max-width: 100%; border-radius: 10px; display: block; margin-bottom: 10px; }
+  
+  /* Grid for affiliations/products */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+  
+  /* Footer */
+  footer { text-align: center; padding: 20px 0; border-top: 1px solid #0ff; color: #0aa; }
+  
+  /* Scroll animation (fade in) */
+  .fade { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+  .fade.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Sean Mascali</h1>
+    <p>Research, Esoteric Phenomena, and Public Contributions</p>
+  </header>
+
+  <section id="research">
+    <h2>Research & Academic Contributions</h2>
+    <div class="card fade">
+      <p><strong>Parapsychiatric Convention:</strong> Sean Mascali is associated with the Parapsychiatric Convention, which promotes research in parapsychiatry exploring extraordinary human abilities. <a href="https://mysticwavetech.github.io/ParapsychiatricCurriculumConvention/speakers.html?utm_source=chatgpt.com" target="_blank">Source</a></p>
+    </div>
+    <div class="card fade">
+      <p><strong>Publications & Software:</strong> He authored <em>Multiverse 2024</em> and developed the Radionics Paranormal Abilities Activation app, designed to activate abilities like teleportation and telekinesis. <a href="https://www.etsy.com/au/market/multiverse_%28book%29_by_sean_a_mascali_phd?utm_source=chatgpt.com" target="_blank">Source</a></p>
+    </div>
+  </section>
+
+  <section id="phenomena">
+    <h2>Esoteric Phenomena</h2>
+    <ul class="fade">
+      <li>Teleportation</li>
+      <li>Telekinesis</li>
+      <li>Materialization</li>
+      <li>Shapeshifting</li>
+      <li>Invincibility</li>
+    </ul>
+  </section>
+
+  <section id="foundations">
+    <h2>Scientific & Esoteric Foundations</h2>
+    <ul class="fade">
+      <li>Parapsychiatry: Attunement and cultivation of consciousness</li>
+      <li>Shared Collective Hallucinations: Multi-person perception events</li>
+      <li>Evolution Physics Doctrine: Human potential evolution framework</li>
+    </ul>
+  </section>
+
+  <section id="affiliations">
+    <h2>Affiliations & Communities</h2>
+    <div class="grid fade">
+      <div class="card">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.JzWjYTvWH5OoFDSZoi_6wwHaHa?pid=Api" alt="Galactic Federation of Light">
+        <p><strong>Galactic Federation of Light (GFL):</strong> Federation of civilizations promoting harmony. <a href="https://intothelight.news/legacy/knowledge-base/galactic-federation/?utm_source=chatgpt.com" target="_blank">Source</a></p>
+      </div>
+      <div class="card">
+        <img src="https://tse4.mm.bing.net/th/id/OIP.HmqVVph1S3KSEb-cnekFrAHaHa?pid=Api" alt="Ashtar Command">
+        <p><strong>Ashtar Command:</strong> Etheric group coordinating space fleet activity over Earth. <a href="https://ashtar.galactic.to/?utm_source=chatgpt.com" target="_blank">Source</a></p>
+      </div>
+      <div class="card">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.WsfjiI3JXwcJTXQNkxA0vgHaKG?pid=Api" alt="Etsy MysticWaveTech">
+        <p><strong>Etsy Store:</strong> MysticWaveTech shop offering paranormal and esoteric products. <a href="https://www.etsy.com/shop/MysticWaveTech?utm_source=chatgpt.com" target="_blank">Source</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="public">
+    <h2>Public Perception & Discussion</h2>
+    <div class="card fade">
+      <p>Discussions describe Sean Mascali as claiming experiences in telekinesis, shapeshifting, and immortality. Titles include King, Sir, and President. <a href="https://www.unexplained-mysteries.com/forum/topic/380957-sean-a-mascali/?utm_source=chatgpt.com" target="_blank">Source</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Sean Mascali Research Infographic. All content compiled from publicly available sources.</p>
+  </footer>
+</div>
+
+<script>
+  // Fade-in animation
+  const faders = document.querySelectorAll('.fade');
+  const appearOptions = { threshold: 0.2 };
+  const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, appearOptions);
+  faders.forEach(fader => appearOnScroll.observe(fader));
+</script>
+
+</body>
+</html>
